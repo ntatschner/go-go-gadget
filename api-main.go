@@ -6,6 +6,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Package level variables
+var listenOnIPv4Address string = "localhost"
+var listenOnPort string = "8080"
+
 // Definition of available services
 type service struct {
 	Name          string `json:"name"`
@@ -45,9 +49,9 @@ var services = []service{
 // Main package function
 func main() {
 	router := gin.Default()
-	router.GET("/albums", getServices)
+	router.GET("/services", getServices)
 
-	router.Run("localhost:8080")
+	router.Run(listenOnIPv4Address + ":" + listenOnPort)
 }
 
 // getServices responds with the list of all services as JSON.
