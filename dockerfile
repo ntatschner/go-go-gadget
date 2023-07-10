@@ -18,4 +18,4 @@ RUN go build -o api-main api-main.go
 
 EXPOSE ${LISTENONPORT}
 
-CMD ["/api-main"]
+CMD ["./api-main"]
