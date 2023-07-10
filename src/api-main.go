@@ -4,11 +4,13 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+
+	"os"
 )
 
 // Package level variables
-var listenOnIPv4Address string = "localhost"
-var listenOnPort string = "8080"
+var listenOnIPv4Address string = os.Getenv("LISTENONIP")
+var listenOnPort string = os.Getenv("LISTENONPORT")
 
 // Definition of available services
 type service struct {
