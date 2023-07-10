@@ -34,7 +34,7 @@ var services = []service{
 	},
 	{
 		Name:          "Enterprise Docker Host",
-		ServiceName:   "enterprise-dicker-host",
+		ServiceName:   "enterprise-docker-host",
 		SecurityLevel: 5,
 		ServiceType:   "ContainerHost",
 	},
