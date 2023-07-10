@@ -12,8 +12,6 @@ COPY src/* ${APP_HOME}
 
 WORKDIR "$APP_HOME"
 
-COPY dependencies /go/src
-
 #RUN go get -d ./...
 
 RUN go build -o api-main api-main.go
