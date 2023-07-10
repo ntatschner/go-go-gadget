@@ -9,7 +9,6 @@ import (
 )
 
 // Package level variables
-var listenOnIPv4Address string = os.Getenv("LISTENONIP")
 var listenOnPort string = os.Getenv("LISTENONPORT")
 
 // Definition of available services
@@ -53,7 +52,7 @@ func main() {
 	router := gin.Default()
 	router.GET("/services", getServices)
 
-	router.Run(listenOnIPv4Address + ":" + listenOnPort)
+	router.Run(":" + listenOnPort)
 }
 
 // getServices responds with the list of all services as JSON.
