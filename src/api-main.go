@@ -65,8 +65,12 @@ func main() {
 	validateTables(databaseConnection, "Services")
 	// prepare and launch http server
 	router := gin.Default()
-	go router.GET("/services", getServices)
-
+	router.GET("/services", getServices)
+	router.GET("/ping", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "pong",
+		})
+	})
 	router.Run(":" + listenOnPort)
 }
 
