@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/ntatschner/gogogadget/app"
+	"github.com/ntatschner/gogogadget/src/app"
 )
 
 // Main package function

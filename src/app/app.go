@@ -5,6 +5,8 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/ntatschner/gogogadget/src/domain"
+	"github.com/ntatschner/gogogadget/src/service"
 )
 
 func Start() {
@@ -28,14 +30,17 @@ func Start() {
 		os.Exit(2)
 	}
 
+	sh := ServiceHandlers{service: service.NewServiceService(domain.NewServiceRepositoryStub())}
+
 	// prepare and launch http server
 	router := gin.Default()
-	router.GET("/services", getServices)
+	router.GET("/services", sh.getAllServices)
+	// router.GET("/services/{service_id:[0-9]{4}}", getService)
+	// router.GET("/services/", createService)
 	router.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "pong",
 		})
 	})
-	router.POST("/services")
-	router.Run(":" + listenOnPort)
+	log.Fatal(router.Run(":" + listenOnPort))
 }

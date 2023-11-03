@@ -2,12 +2,65 @@ package app
 
 import (
 	"database/sql"
-	"log"
 	"net/http"
+
+	"log"
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/ntatschner/gogogadget/src/service"
 )
+
+// Definition of available services
+type Service struct {
+	Name          string `json:"name" xml:"name"`
+	ServiceName   string `json:"servicen_ame" xml:"servicename"`
+	SecurityLevel int    `json:"security_level" xml:"securitylevel"`
+	ServiceType   string `json:"service_type" xml:"servicetype"`
+	ServiceID     string `json:"service_id" xml:"serviceid"`
+}
+
+type ServiceHandlers struct {
+	service service.ServiceService
+}
+
+func (sh *ServiceHandlers) getAllServices(c *gin.Context) {
+	services, err := sh.service.GetAllService()
+	if err != nil {
+		c.IndentedJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.IndentedJSON(http.StatusOK, services)
+}
+
+func (sh *ServiceHandlers) getService(c *gin.Context) {
+	serviceID := c.Param("service_id")
+	services, err := sh.service.GetAllService()
+	if err != nil {
+		c.IndentedJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	for _, a := range services {
+		if a.ServiceID == serviceID {
+			c.IndentedJSON(http.StatusOK, a)
+			return
+		}
+	}
+	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "Service not found."})
+}
+
+// func createService(c *gin.Context) {
+// 	var newService Service
+
+// 	// Call BindJSON to bind the received JSON to newService.
+// 	if err := c.BindJSON(&newService); err != nil {
+// 		return
+// 	}
+
+// 	// Add the new service to the slice.
+// 	services = append(services, newService)
+// 	c.IndentedJSON(http.StatusCreated, newService)
+// }
 
 // Package level variables
 var listenOnPort string = os.Getenv("LISTENONPORT")
@@ -45,13 +98,4 @@ func validateTables(dbconnection *sql.DB, tablename ...string) (servicesTable *s
 		os.Exit(2)
 	}
 	return
-}
-
-// getServices responds with the list of all services as JSON.
-func getServices(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, services)
-}
-
-func postService(c *gin.Context, service string) {
-	c.IndentedJSON(http.StatusAccepted, gin.H{"message": "Post Accepted."})
 }

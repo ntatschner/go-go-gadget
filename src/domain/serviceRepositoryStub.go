@@ -1,50 +1,43 @@
 package domain
 
-// Definition of available services
-type Service struct {
-	Name          string `json:"name" xml:"name"`
-	ServiceName   string `json:"servicen_ame" xml:"servicename"`
-	SecurityLevel int    `json:"security_level" xml:"securitylevel"`
-	ServiceType   string `json:"service_type" xml:"servicetype"`
-}
-
-type ServiceRepository interface {
-	FindAll() ([]Service, error)
-}
-
 type ServiceRepositoryStub struct {
-	services []Service
+	Services []Service
 }
 
 func (s ServiceRepositoryStub) FindAll() ([]Service, error) {
-	return s.services, nil
+	return s.Services, nil
 }
 
-func NewServiceRepositoryStub() ServiceRepository {
+func NewServiceRepositoryStub() ServiceRepositoryStub {
 	services := []Service{
 		{
 			Name:          "Proxmox",
 			ServiceName:   "proxmox",
 			SecurityLevel: 5,
 			ServiceType:   "HyperVisor",
+			ServiceID:     "0001",
 		},
 		{
 			Name:          "Voyager Docker Host",
 			ServiceName:   "voyager-docker-host",
 			SecurityLevel: 5,
 			ServiceType:   "ContainerHost",
+			ServiceID:     "0002",
 		},
 		{
 			Name:          "Enterprise Docker Host",
 			ServiceName:   "enterprise-docker-host",
 			SecurityLevel: 5,
 			ServiceType:   "ContainerHost",
+			ServiceID:     "0003",
 		},
 		{
 			Name:          "UniFi Dream Machine Pro",
 			ServiceName:   "unifi-dream-machine-pro",
 			SecurityLevel: 5,
 			ServiceType:   "Networking",
+			ServiceID:     "0004",
 		},
 	}
+	return ServiceRepositoryStub{services}
 }
