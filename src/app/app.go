@@ -30,7 +30,8 @@ func Start() {
 		os.Exit(2)
 	}
 
-	sh := ServiceHandlers{service: service.NewServiceService(domain.NewServiceRepositoryStub())}
+	// sh := ServiceHandlers{service: service.NewServiceService(domain.NewServiceRepositoryStub())}
+	sh := ServiceHandlers{service: service.NewServiceService(domain.NewServiceRepositoryDB())}
 
 	// prepare and launch http server
 	router := gin.Default()
