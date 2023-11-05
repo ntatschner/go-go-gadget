@@ -14,7 +14,7 @@ type ServiceRepositoryDB struct {
 }
 
 func (s ServiceRepositoryDB) FindAll() ([]Service, error) {
-	log.Output(1, fmt.Sprintf("FindAll() called"))
+	log.Output(1, "FindAll() called")
 
 	sqlQuery := "SELECT service_name, service_id, security_level, service_type, name FROM services"
 
@@ -36,6 +36,20 @@ func (s ServiceRepositoryDB) FindAll() ([]Service, error) {
 		services = append(services, service)
 	}
 	return services, nil
+}
+
+func (s ServiceRepositoryDB) ById(id string) (*Service, error) {
+	log.Output(1, "ById() called")
+	sqlQuery := "SELECT service_name, service_id, security_level, service_type, name FROM services WHERE service_id = ?"
+
+	row := s.client.QueryRow(sqlQuery, id)
+	var service Service
+	err := row.Scan(&service.ServiceName, &service.ServiceID, &service.SecurityLevel, &service.ServiceType, &service.Name)
+	if err != nil {
+		log.Output(1, fmt.Sprintf("Scan failed: %p", s.client.Query))
+		return nil, err
+	}
+	return &service, nil
 }
 
 func NewServiceRepositoryDB() ServiceRepositoryDB {

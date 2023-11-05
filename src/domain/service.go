@@ -11,4 +11,5 @@ type Service struct {
 
 type ServiceRepository interface {
 	FindAll() ([]Service, error)
+	ById(string) (*Service, error)
 }

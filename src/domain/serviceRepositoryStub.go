@@ -1,10 +1,21 @@
 package domain
 
+import (
+	"log"
+)
+
 type ServiceRepositoryStub struct {
 	Services []Service
 }
 
+type ServiceRepositoryStubById struct {
+	Services *Service
+}
+
 func (s ServiceRepositoryStub) FindAll() ([]Service, error) {
+	return s.Services, nil
+}
+func (s ServiceRepositoryStubById) ById(id string) (*Service, error) {
 	return s.Services, nil
 }
 
@@ -40,4 +51,18 @@ func NewServiceRepositoryStub() ServiceRepositoryStub {
 		},
 	}
 	return ServiceRepositoryStub{services}
+}
+
+func NewServiceRepositoryStubById(id string) ServiceRepositoryStubById {
+	log.Output(1, "ById() called")
+	s, _ := NewServiceRepositoryStub().FindAll()
+
+	var targetService Service
+	for _, service := range s {
+		if service.ServiceID == id {
+			targetService = service
+			break
+		}
+	}
+	return ServiceRepositoryStubById{&targetService}
 }
