@@ -8,7 +8,7 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
-	"github.com/ntatschner/gogogadget/src/service"
+	"github.com/ntatschner/go-go-gadget/src/service"
 )
 
 // Definition of available services

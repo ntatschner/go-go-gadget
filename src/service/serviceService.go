@@ -1,6 +1,6 @@
 package service
 
-import "github.com/ntatschner/gogogadget/src/domain"
+import "github.com/ntatschner/go-go-gadget/src/domain"
 
 type ServiceService interface {
 	GetAllService() ([]domain.Service, error)

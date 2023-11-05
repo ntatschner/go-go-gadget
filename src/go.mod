@@ -1,4 +1,4 @@
-module github.com/ntatschner/gogogadget/src
+module github.com/ntatschner/go-go-gadget/src
 
 go 1.20
 

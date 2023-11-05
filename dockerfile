@@ -12,8 +12,8 @@ COPY src/* ${APP_HOME}
 
 WORKDIR "$APP_HOME"
 
-RUN go build -o api-main api-main.go
+RUN go build -o main main.go
 
 EXPOSE ${LISTENONPORT}
 
-CMD ["./api-main"]
+CMD ["./main"]
