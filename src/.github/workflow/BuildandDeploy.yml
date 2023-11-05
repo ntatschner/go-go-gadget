@@ -1,9 +1,0 @@
-name: Build and deploy Docker container on remote host
-
-on:
-  workflow_dispatch:
-
-  Push_Request:
-    - main
-
-task:
