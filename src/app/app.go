@@ -9,22 +9,6 @@ import (
 )
 
 func Start() {
-	// source, err := localOrDatabase()
-	// if source == "local" {
-	// 	log.Output(1, "Launching with local test data.")
-	// 	listenOnPort = "8080"
-	// 	sh := ServiceHandlers{service: service.NewServiceService(domain.NewServiceRepositoryStub())}
-	// }
-	// if source == "remote" {
-	// 	log.Output(1, "Launching with database data.")
-	// 	listenOnPort = "8080"
-	// 	sh := ServiceHandlers{service: service.NewServiceService(domain.NewServiceRepositoryDB())}
-	// }
-	// if err != nil {
-	// 	log.Fatal("Failed to determine launch environment.")
-	// 	os.Exit(2)
-	// }
-
 	sh := ServiceHandlers{service: service.NewServiceService(domain.NewServiceRepositoryDB())}
 
 	// prepare and launch http server
